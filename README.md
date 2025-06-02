@@ -72,14 +72,25 @@ The **Sports Club Companion App** serves as a digital bridge between sports club
 
 ---
 
+## 🧩 System Architecture (UML)
+
+![UML Diagram](/assets/uml/uml.png)
+![UML Diagram](/assets/uml/sports_club_app_uml.png)
+
 ## 📸 App Screenshots
 
 > Add your screenshots to the `assets/screenshots/` directory and they'll appear below automatically.
 
 <p align="center">
-  <img src="assets/screenshots/login.png" width="200" />
-  <img src="assets/screenshots/home.png" width="200" />
-  <img src="assets/screenshots/course_list.png" width="200" />
-  <img src="assets/screenshots/reservations.png" width="200" />
-  <img src="assets/screenshots/profile.png" width="200" />
+  <img src="assets/screenshots/app_icon.png" width="200" />
+  <img src="assets/screenshots/splash_logo.jpg" width="200" /> </br>
+  <img src="assets/screenshots/login.jpg"  />
+  <img src="assets/screenshots/reset.jpg"  />
+  <img src="assets/screenshots/reset_pass_link.jpg" />
+  <img src="assets/screenshots/new_pass.jpg" />
+  <img src="assets/screenshots/pass_changed.jpg" />
+  <img src="assets/screenshots/signup.jpg" />
+  <img src="assets/screenshots/dashboard.jpg" />
+  <img src="assets/screenshots/profile.jpg" />
+  <img src="assets/screenshots/flutter_courses.jpg" />
 </p>
