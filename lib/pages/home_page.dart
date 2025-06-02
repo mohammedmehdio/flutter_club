@@ -444,18 +444,23 @@ class _HomePageState extends State<HomePage> {
                                 return;
                               }
                               await _firestoreService.enrollMemberInCourse(
-                                  widget.clientCode, course.id, _member!.uid); // Safe to use ! due to check above
-                              
+                                  widget.clientCode,
+                                  course.id,
+                                  _member!
+                                      .uid); // Safe to use ! due to check above
+
                               // Update local member state immediately for UI responsiveness
                               setState(() {
                                 // Assuming _member!.enrolledCourseIds is final and effectively non-nullable (List<String>)
                                 // due to Member model's initialization (e.g., List.from(data['enrolledCourseIds'] ?? [])).
                                 // If enrolledCourseIds is typed as List<String>?, we need to assert non-nullity if confident.
-                                if (_member != null && _member!.enrolledCourseIds != null) {
+                                if (_member != null &&
+                                    _member!.enrolledCourseIds != null) {
                                   _member!.enrolledCourseIds!.add(course.id);
                                 } else {
                                   // Log or handle the unexpected null case. This shouldn't happen if Member.fromFirestore guarantees non-null list.
-                                  print("Error: _member.enrolledCourseIds is null during UI update. This indicates an issue with member data loading or model initialization.");
+                                  print(
+                                      "Error: _member.enrolledCourseIds is null during UI update. This indicates an issue with member data loading or model initialization.");
                                 }
                               });
 
@@ -464,9 +469,9 @@ class _HomePageState extends State<HomePage> {
                                     content: Text(
                                         'Successfully enrolled in ${course.name}')),
                               );
-                              
+
                               // Refresh course list from Firestore to ensure consistency
-                              await _refreshCourses(); 
+                              await _refreshCourses();
                             } catch (e) {
                               print(
                                   'Error enrolling in course: $e'); // Use print for now
