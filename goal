@@ -1,0 +1,46 @@
+I am developing a comprehensive mobile application for a sports club using Flutter (frontend) and Firebase (backend). The app will serve as a platform for club members to manage their memberships, book courses, track attendance, receive notifications, and interact with coaches. The backend should leverage Firebase’s Firestore for data storage, authentication for user management, and Firebase Cloud Messaging for notifications.
+
+this is what Im thinking of :
+
+Key Functional Requirements
+User Authentication & Profile Management
+Members sign up using a unique client code, set a password, and can log in/out.
+Password reset functionality.
+Profile includes: name, age, sex, email, primary and secondary phone numbers, address, profile photo, emergency contact, medical info, membership status, join date, last login, and roles (e.g., member, admin, coach).
+Attendance Tracking
+Members check in and out of the club daily.
+Attendance history and statistics available in the app.
+Course Management & Reservation
+List of available courses with details (title, description, difficulty, schedule, location, price, tags, image, duration, capacity, assigned coach).
+Members can view, reserve, cancel, or reschedule courses.
+Waitlist feature for full courses.
+Members can rate and review courses after attending.
+Subscription & Payment Management
+Members can view their subscription status, plan type, start/end dates, payment method, payment history.
+Ability to renew or upgrade subscriptions.
+Coach Management
+Coaches have profiles with name, specialty, contact info, bio, photo, and ratings.
+Each course is assigned to a coach.
+Notifications
+Members receive notifications for reservations, subscription status, password changes, new courses, and club announcements.
+Notifications can be marked as read/unread and are linked to relevant reservations or courses.
+Analytics & Activity Summary
+Members can view summaries of their attendance, course participation, and subscription history.
+Support & Feedback
+In-app support chat or contact options.
+Members can submit feedback or suggestions.
+Localization
+Multi-language support for a diverse user base.
+Technical Requirements
+Frontend: Flutter (cross-platform mobile development)
+Backend: Firebase (Firestore, Authentication, Cloud Messaging, Storage)
+Data Structure: NoSQL (Firestore best practices, denormalized where necessary for performance)
+Security: Proper rules for Firestore and Authentication, role-based access control
+Notifications: Firebase Cloud Messaging for real-time alerts
+critical features are : Daily status : every day status when the person has entered the club and when it just has exit it . Cours : the available cours to choose for reservation , also the status of what the person reserved Reservation: to reserve a cours for coaching , so the person see available days times and coachs to be able to choose and start a cour session Subscription: the person can see when his monthly subscription will end , and can see every details about how he payed the subscription Notifications : the person will get warning notifications about the ending of his subscription, he get notifications about his reservations , cours , he may get a notification that his password got changed Log in : the person should be able to log in using the code client and a password . But he should first signup to be able to set a password , he may forget the password Profile : the person can see and modify his profile.
+
+focus only on the member experience . Actually i forgot to tell u the members wont enter there informations in the mobile app there informations are already stored when they came to our club except for the password that's why they need to signup just for setting up the password also the payment , they are not gonna pay for the subscription in the mobile app , they pay us when they came to our club.
+
+"Do not make any changes, until you have 95% confidence that you know what to build ask me follow up questions until you have that confidence
+
+lets create this step by step , u do one thing u ask me i answer , we check if its work , go to the other step . just imagine Yourself as an EXPERT level software engineer and system architect that focuses on creating scaleable, fast systems that are easy to upgrade , u are working with me in this project and always remeber "Do not make any changes, until you have 95% confidence that you know what to build ask me follow up questions until you have that confidence"

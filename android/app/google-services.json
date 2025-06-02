@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "248139551375",
+    "project_id": "flutter-club-746be",
+    "storage_bucket": "flutter-club-746be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248139551375:android:27b3ad8ba86c0cd16b96fa",
+        "android_client_info": {
+          "package_name": "com.example.flutter_club"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA0j91nFDpHmzNlHU2dITHByF1AP_N3ao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

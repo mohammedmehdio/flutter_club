@@ -1,0 +1,78 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /clientCodes/{clientCodeId} {
+      // Allow reading a client code document if:
+      // 1. User is authenticated (for general admin/internal checks).
+      // OR
+      // 2. The code is valid (for signup to fetch details, or for login/reset to fetch email).
+      // This means clientCode documents should only store data safe for this exposure (e.g., email, fullName).
+      allow get: if request.auth != null || resource.data.isValid == true;
+
+      // Disallow listing all client codes by default to prevent enumeration.
+      allow list: if false; // Or restrict to admin roles via custom claims
+
+      // Allow creating client codes (e.g., by an admin script).
+      // Consider adding admin role check here: request.auth.token.admin == true
+      allow create: if true;
+
+      // Allow updating a client code document ONLY for the "claiming" process during signup.
+      allow update: if request.auth != null && // User must be authenticated (e.g., just created via Firebase Auth)
+                       request.resource.data.isClaimed == true &&
+                       request.resource.data.claimedBy == request.auth.uid &&
+                       resource.data.isClaimed == false && // Can only claim an unclaimed code
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isClaimed', 'claimedAt', 'claimedBy']);
+
+      // Disallow client-side deletion of client codes.
+      allow delete: if false; // Or restrict to admin roles
+    }
+
+    match /members/{memberId} { // memberId is the clientCode
+      // Allow a user to read their own member document using their clientCode as ID.
+      allow get: if request.auth != null && request.auth.uid == resource.data.uid;
+
+      // Allow a user to list/query their own member document.
+      allow list: if request.auth != null && request.auth.uid == resource.data.uid;
+
+      // Allow a user to create their own member document during signup.
+      // The memberId (document ID) must be the clientCode.
+      allow create: if request.auth != null &&
+                       request.auth.uid == request.resource.data.uid &&
+                       request.resource.id == request.resource.data.clientCode;
+
+      // Allow a user to update their own member document.
+      // Specifically allow adding/removing course IDs from enrolledCourseIds.
+      allow update: if request.auth != null && 
+                       request.auth.uid == resource.data.uid &&
+                       (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['enrolledCourseIds', 'lastLogin']) ||
+                        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastLogin']) // for lastLogin updates
+                       );
+                       // Add other updatable fields here as needed, e.g., profile info
+
+      // Disallow deleting member documents from the client.
+      allow delete: if false;
+    }
+
+    match /courses/{courseId} {
+      // Allow any authenticated user to read course documents.
+      allow get: if request.auth != null;
+      allow list: if request.auth != null;
+
+      // Allow authenticated users to update the enrolledUids list of a course
+      // - They can only add their own UID to the list.
+      // - They cannot remove UIDs (that should be an admin or specific unenroll function).
+      // - The course must not be full.
+      // - No other fields can be modified.
+      allow update: if request.auth != null &&
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['enrolledUids']) &&
+                       request.resource.data.enrolledUids == resource.data.enrolledUids.concat([request.auth.uid]) &&
+                       resource.data.enrolledUids.size() < resource.data.maxCapacity;
+                       // For unenrolling, a separate rule or a backend function would be safer.
+
+      // Restrict create, delete to admin/specific roles.
+      allow create: if false; // Placeholder, implement admin check via custom claims
+      allow delete: if false; // Placeholder, implement admin check
+    }
+  }
+}
